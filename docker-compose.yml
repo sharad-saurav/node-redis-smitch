@@ -1,0 +1,22 @@
+version: "3"
+services:
+  redis:
+    image: "redis:latest"
+  server: 
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+
+    ports:
+      - 3000:3000
+      
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - mongoPwd="sharad123"
+      - JWT_KEY="secret key"
+      - PORT=3000
